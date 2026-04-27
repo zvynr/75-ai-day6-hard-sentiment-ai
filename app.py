@@ -5,6 +5,7 @@ import os
 import logging
 from config import config
 from transformers import pipeline
+from flask_cors import CORS
 
 logging.basicConfig(
     level=logging.INFO,
@@ -13,6 +14,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+CORS(app)
+# restrict access to spesific domain
+# CORS(app, resources={r"/*": {"origins": ["https://yourdomain.com"]}})
+
 
 env = os.environ.get('FLASK_ENV', 'production')
 app.config.from_object(config[env])
